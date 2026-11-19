@@ -1,0 +1,15 @@
+{
+  "title": "Portfolio - Nayara Gomes",
+  "description": "Projeto fluxos complexos para produtos digitais, transformando necessidades de usuários e decisões de negócio em soluções simples e viáveis.",
+  "robots": {
+    "index": true
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  },
+  "language": "pt-BR",
+  "icons": {
+    "icon": "favicon.png"
+  }
+}

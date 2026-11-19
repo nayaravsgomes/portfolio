@@ -1,0 +1,81 @@
+@import 'tailwindcss';
+
+
+@theme {
+  --font-comfortaa: 'Comfortaa', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+}
+
+/* Poppins por peso (carregada via Google Fonts no index.html) */
+@utility font-pr { font-family: 'Poppins', sans-serif; font-weight: 400; }
+@utility font-pm { font-family: 'Poppins', sans-serif; font-weight: 500; }
+@utility font-ps { font-family: 'Poppins', sans-serif; font-weight: 600; }
+@utility font-inter-medium { font-family: 'Poppins', sans-serif; font-weight: 500; }
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  #app-scroll { scroll-behavior: smooth; }
+  body { font-family: 'Poppins', sans-serif; font-weight: 400; background: #fff; }
+  h1, h2, h3, h4, h5 { font-weight: inherit; }
+}
+
+/* Click ripple */
+@keyframes ripple {
+  from { transform: translate(-50%, -50%) scale(0); opacity: 0.45; }
+  to { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+.ripple {
+  position: absolute;
+  width: 140%;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  pointer-events: none;
+  animation: ripple 650ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+.pop { animation: pop 380ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+.fx-card {
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 300ms ease, border-color 300ms ease;
+}
+.fx-card:hover, .fx-card:focus-visible {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 36px -8px rgba(255, 135, 165, 0.35);
+  border-color: rgba(255, 135, 165, 0.6);
+}
+.fx-card:active { transform: translateY(-2px) scale(0.985); transition-duration: 120ms; }
+.fx-card:focus-visible { outline: 2px solid #ff87a5; outline-offset: 3px; }
+.fx-zoom { transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1); }
+.fx-card:hover .fx-zoom { transform: scale(1.05); }
+.fx-arrow { display: inline-block; transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1); }
+.fx-card:hover .fx-arrow { transform: translateX(6px); }
+.fx-card:hover .fx-link { text-decoration: underline; text-underline-offset: 4px; }
+.fx-card:hover .fx-tag { background: #ff87a5; color: #fff; }
+.fx-tag { transition: background 250ms ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-card, .fx-zoom, .fx-arrow, .ripple, .pop { transition: none !important; animation: none !important; }
+}
+
+/* Barra de rolagem: só o indicador (sem fundo nem setas), 2px em repouso e 8px no hover do conteúdo.
+   Importante: scrollbar-width/scrollbar-color desativam o ::-webkit-scrollbar no Chrome, então só valem como fallback (Firefox). */
+:root { --header-h: 88px; }
+::-webkit-scrollbar { width: 12px; height: 12px; background: transparent; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+::-webkit-scrollbar-corner { background: transparent; }
+::-webkit-scrollbar-thumb { background: #ff87a5; border-radius: 999px; border: 5px solid transparent; background-clip: padding-box; }
+html:hover::-webkit-scrollbar-thumb,
+.modal-scroll:hover::-webkit-scrollbar-thumb,
+*:hover::-webkit-scrollbar-thumb { border-width: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #ff6f94; background-clip: padding-box; }
+/* A barra da página começa abaixo do header fixo */
+#app-scroll::-webkit-scrollbar-track { margin-top: var(--header-h); }
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: #ff87a5 transparent; }
+}
